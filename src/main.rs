@@ -55,7 +55,7 @@ struct DigitSequenceCounter {
 }
 
 impl DigitSequenceCounter {
-    pub const LARGEST_SEQUENCE_LENGTH: usize = std::mem::size_of::<usize>() << 1;
+    pub const LARGEST_SEQUENCE_LENGTH: usize = (std::mem::size_of::<usize>() << 1) - 1;
 
     pub fn new(sequence_length: usize) -> DigitSequenceCounter {
         if sequence_length > Self::LARGEST_SEQUENCE_LENGTH {
@@ -69,7 +69,7 @@ impl DigitSequenceCounter {
             sequence_length,
             current_sequence: 0,
             sequence_counts: vec![0; modulus],
-            bitmask: modulus.wrapping_sub(1),
+            bitmask: modulus - 1,
             stalled_for: sequence_length,
         }
     }
